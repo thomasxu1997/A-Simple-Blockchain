@@ -45,11 +45,12 @@ def verify_data():
         if block_index == 0:
             block_index += 1
             continue
-        if block[0] == blockchain[block_index - 1]:
+        elif block[0] == blockchain[block_index - 1]:
             is_valid = True
         else:
             is_valid = False
             break
+        block_index += 1
     return is_valid
 
 
@@ -62,7 +63,7 @@ while True:
     print('1: Add a new transaction value')
     print('2: Output the blockchain blocks')
     print('h: Manipulate the chain')
-    print('h: Quit')
+    print('q: Quit')
     user_choice = get_user_choice()
     if user_choice == '1':
         tx_amount = get_transaction_value()
