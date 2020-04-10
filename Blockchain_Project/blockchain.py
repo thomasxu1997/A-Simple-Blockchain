@@ -1,5 +1,5 @@
 # Initializing our blockchain list
-blockchain = []
+blockchain = [[1]]
 
 
 def get_last_blockchain_value():
@@ -8,7 +8,7 @@ def get_last_blockchain_value():
 
 
 def add_value(transaction_amount, last_transaction=[1]):
-    """ Append a new value as well as the last blockchain to the blockchain.
+    """ Append a new value as well as the last block chain to the blockchain.
 
     Arguments:
         :transaction_amount: The amount that should be added.
@@ -27,6 +27,8 @@ def print_blockchain_elements():
     for block in blockchain:
         print('Outputting Block')
         print(block)
+    else:
+        print('-' * 50)
 
 
 def get_user_choice():
@@ -45,7 +47,7 @@ def verify_data():
         if block_index == 0:
             block_index += 1
             continue
-        elif block[0] == blockchain[block_index - 1]:
+        if block[0] == blockchain[block_index - 1]:
             is_valid = True
         else:
             is_valid = False
@@ -58,7 +60,9 @@ def verify_data():
 tx_amount = get_transaction_value()
 add_value(tx_amount)
 
-while True:
+waiting_for_input = True
+
+while waiting_for_input:
     print('Please choose')
     print('1: Add a new transaction value')
     print('2: Output the blockchain blocks')
@@ -70,15 +74,17 @@ while True:
         add_value(tx_amount, get_last_blockchain_value())
     elif user_choice == '2':
         print_blockchain_elements()
+        print(blockchain)
     elif user_choice == 'h':
         hack_blockchain()
     elif user_choice == 'q':
-        print('Quit!')
-        break
+        waiting_for_input = False
     else:
         print('Input invalid!')
     if not verify_data():
         print('Invalid blockchain!')
         break
+else:
+    print('User left!')
 
 print('Done')
